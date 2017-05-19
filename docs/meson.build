@@ -1,11 +1,5 @@
 subdir('xml')
 
-version_xml_conf = configuration_data()
-version_xml_conf.set('PANGO_VERSION', meson.project_version())
-configure_file(input: 'version.xml.in',
-               output: 'version.xml',
-               configuration: version_xml_conf)
-
 private_headers = [
   'ftglue.h',
   'modules.h',
@@ -51,8 +45,7 @@ if host_system != 'windows'
 endif
 
 content_files = [
-  'pango_markup.sgml',
-  'version.xml',
+  'pango-markup.xml',
 ]
 
 html_images = [
@@ -81,7 +74,7 @@ cairo_docpath = join_paths(cairo_prefix, 'share', 'gtk-doc', 'html')
 docpath = join_paths(pango_datadir, 'gtk-doc', 'html')
 
 gnome.gtkdoc('pango',
-             main_xml: 'pango-docs.sgml',
+             main_xml: 'pango-docs.xml',
              src_dir: [
                join_paths(meson.source_root(), 'pango'),
                join_paths(meson.build_root(), 'pango'),
@@ -93,10 +86,6 @@ gnome.gtkdoc('pango',
                '--deprecated-guards=PANGO_DISABLE_DEPRECATED',
                '--ignore-decorators=_PANGO_EXTERN',
                '--ignore-headers=' + ' '.join(private_headers),
-             ],
-             mkdb_args: [
-               '--sgml-mode',
-               '--output-format=xml',
              ],
              fixxref_args: [
                '--html-dir=@0@'.format(docpath),
