@@ -112,7 +112,7 @@ load_fallback_face (PangoFT2Font *ft2font,
 
   matched = FcFontMatch (pango_fc_font_map_get_config ((PangoFcFontMap *)fcfont->fontmap), sans, &result);
 
-  if (FcPatternGetString (matched, FC_FILE, 0, &filename2) != FcResultMatch)
+  if (FcPatternFindFont (matched, NULL, &filename2) != FcResultMatch)
     goto bail1;
 
   if (FcPatternGetInteger (matched, FC_INDEX, 0, &id) != FcResultMatch)
@@ -238,7 +238,7 @@ pango_ft2_font_get_face (PangoFont *font)
       if (autohint)
 	ft2font->load_flags |= FT_LOAD_FORCE_AUTOHINT;
 
-      if (FcPatternGetString (pattern, FC_FILE, 0, &filename) != FcResultMatch)
+      if (FcPatternFindFont (pattern, NULL, &filename) != FcResultMatch)
 	      goto bail0;
 
       if (FcPatternGetInteger (pattern, FC_INDEX, 0, &id) != FcResultMatch)

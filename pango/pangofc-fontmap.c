@@ -1899,7 +1899,7 @@ pango_fc_font_map_get_font_face_data (PangoFcFontMap *fcfontmap,
   PangoFcFontFaceData key;
   PangoFcFontFaceData *data;
 
-  if (FcPatternGetString (font_pattern, FC_FILE, 0, (FcChar8 **)(void*)&key.filename) != FcResultMatch)
+  if (FcPatternFindFont (font_pattern, NULL, (FcChar8 **)(void*)&key.filename) != FcResultMatch)
     return NULL;
 
   if (FcPatternGetInteger (font_pattern, FC_INDEX, 0, &key.id) != FcResultMatch)
